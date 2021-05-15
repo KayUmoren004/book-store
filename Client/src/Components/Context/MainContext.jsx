@@ -9,11 +9,38 @@ export const MainProvider = ({ children }) => {
   //Store modified search
   const [search, setSearch] = useState("");
 
-  const SearchBooks = (searchInput) => {
-    setSearch(searchInput);
-  };
+  //store book selected
+  const [bookSelected, setBookSelected] = useState([]);
+  const [shelf, setShelf] = useState("");
+  const [bookDetails, setBookDetails] = useState([]);
+
+  //Store books in shelf
+  const [WantToRead, setWantToRead] = useState([]);
+  const [CurrentlyReading, setCurrentlyReading] = useState([]);
+  const [Read, setRead] = useState([]);
+
+  // const GetBook = (books) => {
+  //   setBook(books);
+  // };
+
+  // const SearchBooks = (searchParam) => {
+  //   setSearch(searchParam);
+  // };
   return (
-    <MainContext.Provider value={{ SearchBooks }}>
+    <MainContext.Provider
+      value={[
+        bookSelected,
+        setBookSelected,
+        WantToRead,
+        setWantToRead,
+        CurrentlyReading,
+        setCurrentlyReading,
+        Read,
+        setRead,
+        bookDetails,
+        setBookDetails,
+      ]}
+    >
       {children}
     </MainContext.Provider>
   );

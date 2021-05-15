@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, useParams } from "react-router-dom";
 import { AccessTokenContext } from "../Context/AccessTokenContext";
 
 const ProtectedRoute = ({ children }) => {

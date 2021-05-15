@@ -5,6 +5,7 @@ const reducer = (
     text: "Login",
     JWT: "",
     searchInput: "",
+    book: [],
   },
   action
 ) => {
@@ -22,7 +23,12 @@ const reducer = (
     case types.SEARCH:
       return {
         ...state,
-        searchInput: action.payload.searchInput,
+        searchInput: action.payload,
+      };
+    case types.BOOK_SELECTED:
+      return {
+        ...state,
+        book: action.payload,
       };
     default:
       return state;

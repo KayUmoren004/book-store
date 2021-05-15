@@ -16,8 +16,13 @@ export const getJWTToken = (token) => {
 export const search = (searchInput) => {
   return {
     type: types.SEARCH,
-    payload: {
-      searchInput,
-    },
+    payload: searchInput,
+  };
+};
+
+export const getBook = (selectedBook) => {
+  return {
+    type: types.BOOK_SELECTED,
+    payload: selectedBook,
   };
 };

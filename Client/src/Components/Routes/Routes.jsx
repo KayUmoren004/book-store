@@ -28,7 +28,7 @@ const Routes = () => {
         <ProtectedRoute exact path="/bookshelf">
           <BookShelf />
         </ProtectedRoute>
-        <ProtectedRoute exact path="/book">
+        <ProtectedRoute exact path="/book/:id">
           <BookDetails />
         </ProtectedRoute>
         <Route exact path="/login">

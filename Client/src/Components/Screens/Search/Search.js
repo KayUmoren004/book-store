@@ -4,15 +4,20 @@ import React, { useState, useContext } from "react";
 import NavBar from "../../Screen Components/NavBar/NavBar";
 import styled from "styled-components";
 import SearchScreen from "./SearchScreen";
-import { AccessTokenContext } from "../../Context/AccessTokenContext";
-import axios from "axios";
+//import axios from "axios";
+import { MainContext } from "../../Context/MainContext";
 
 const Search = (props) => {
   //state
   const [searchInput, setSearchInput] = useState("");
-  const [book, setBook] = useState("salmon+fishing");
+  const [book, setBook] = useState([]);
+  const [bookSelected, setBookSelected] = useContext(MainContext);
+  // const [images, setImages] = useState([]);
+  // const [title, setTitle] = useState([]);
+  // const [author, setAuthor] = useState([]);
 
   //const { SearchBooks } = useContext(AccessTokenContext);
+  //const { SearchBooks } = useContext(MainContext);
 
   const SpaceToPlus = (str) => {
     //return decodeURIComponent((str + "").replace(/\+/g, "%20"));
@@ -23,15 +28,40 @@ const Search = (props) => {
 
   const search = (e) => {
     e.preventDefault();
-    props.search(SpaceToPlus(searchInput));
+    //props.search(SpaceToPlus(searchInput));
 
-    axios.request({
-      method: "GET",
-      url: `/api/book/search/${book}`,
-    });
+    // axios.request({
+    //   method: "GET",
+    //   url: `/api/book/search/${book}`,
+    // });
+
+    fetch(`/api/book/search/${SpaceToPlus(searchInput)}`)
+      .then((res) => res.json())
+      .then((data) => setBookSelected(data.books));
+    //console.log(book);
+    //setBook(res.data.books);
+    //props.getBook(book);
+
+    //fetch(`/api/book/search/${SpaceToPlus(searchInput)}`);
+
+    // axios
+    //   .request({
+    //     method: "GET",
+    //     url: `/api/book/search/${SpaceToPlus(searchInput)}`,
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     // data: JSON.stringify({
+    //     //   SpaceToPlus(searchInput)
+    //     // })
+    //   })
+    //   .then((res) => {
+    //     const { searchParam } = res.data;
+
+    //   });
   };
 
-  console.log(props);
+  //console.log(bookSelected);
 
   return (
     <Container>
@@ -52,7 +82,7 @@ const Search = (props) => {
           </SearchForm>
         </FormContainer>
       </SearchContainer>
-      <SearchScreen />
+      <SearchScreen books={bookSelected} setBooks={setBook} />
     </Container>
   );
 };

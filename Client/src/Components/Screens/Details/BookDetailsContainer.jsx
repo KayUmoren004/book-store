@@ -3,14 +3,17 @@ import { connect } from "react-redux";
 import BookDetails from "./BookDetails";
 
 //import your actions
-import {} from "../../Redux/actions";
+import { getBook } from "../../Redux/actions";
 
 const mapStateToProps = (state) => {
   return {
     //state
+    book: state.book,
   };
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  getBook,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookDetails);
