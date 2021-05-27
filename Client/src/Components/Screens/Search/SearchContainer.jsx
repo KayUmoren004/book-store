@@ -1,20 +1,16 @@
-import React from "react";
-
-//Dependencies
 import { connect } from "react-redux";
+//import your file
 import Search from "./Search";
-import { search, getBook } from "../../Redux/actions";
+//import your actions
+import { CurrentBook } from "../../Redux/actions";
 
 const mapStateToProps = (state) => {
   return {
-    searchInput: state.searchInput,
-    book: state.book,
+    //state
+    currentBook: state.currentBook,
   };
 };
 
-const mapDispatchToProps = {
-  search,
-  getBook,
-};
+const mapDispatchToProps = { CurrentBook };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

@@ -3,30 +3,17 @@ import React from "react";
 //Dependencies
 import styled from "styled-components";
 import FlatList from "flatlist-react";
-import logo from "./logo.svg";
 import { Link } from "react-router-dom";
-//import BookDetails from "../Details/BookDetails";
 
-const SearchScreen = ({ books, setBooks }) => {
-  //const [bookId, setBookId] = useState("");
-
-  const RenderBook = (item, idx) => {
-    //const image = item.imageLinks.thumbnail;
-
-    //console.log(JSON.stringify(item.imageLinks));
-
+const SearchScreen = ({ books, Props }) => {
+  const renderBook = (item, idx) => {
     const author = item.authors;
-    //const authorWithSpace = author
-
-    // useEffect(() => {
-    //   setBookId(idx);
-    // }, [idx]);
-    // console.log(bookId);
+    const authorsWithSpace = author?.join(", ");
 
     return (
       <Container key={idx}>
         <ImageContainer>
-          <Image alt={"book-cover"} src={item.imageLinks.thumbnail} />
+          <Image alt={"book-cover"} src={item.imageLinks?.thumbnail} />
         </ImageContainer>
         <TextContainer>
           <TitleContainer>
@@ -42,7 +29,7 @@ const SearchScreen = ({ books, setBooks }) => {
             </Title>
           </TitleContainer>
           <AuthorContainer>
-            <Author>{author}</Author>
+            <Author>{authorsWithSpace}</Author>
           </AuthorContainer>
         </TextContainer>
       </Container>
@@ -51,16 +38,18 @@ const SearchScreen = ({ books, setBooks }) => {
 
   return (
     <FlatListContainer>
-      <FlatList list={books} renderItem={RenderBook} />
+      <FlatList
+        list={books}
+        renderItem={renderBook}
+        renderWhenEmpty={() => <Empty>Search for books...</Empty>}
+      />
     </FlatListContainer>
   );
 };
 
 const Container = styled.div`
   display: flex;
-  /* padding: 15px; */
   margin: 15px;
-  /* justify-content: center; */
   align-items: center;
 `;
 const TextContainer = styled.div``;
@@ -77,12 +66,16 @@ const Title = styled(Link)`
   text-decoration: none;
 `;
 const Author = styled.p``;
+const Empty = styled.p`
+  margin: 10px;
+  display: block;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  padding-right: 15px;
+  padding-left: 15px;
+`;
 const Image = styled.img`
   border: 2px solid grey;
   padding: 5px;
 `;
-// const = styled.
-// const = styled.
-// const = styled.
-
 export default SearchScreen;

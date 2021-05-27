@@ -2,7 +2,8 @@ import { createContext, useState, useEffect } from "react";
 
 //Dependencies
 import axios from "axios";
-import { createCountdown, clearCountdown } from "../Utils/Refresh/refresh";
+import { createCountdown, clearCountdown } from "../Utils/Refresh/Refresh";
+
 export const AccessTokenContext = createContext();
 
 export const AccessTokenProvider = ({ children }) => {
@@ -12,14 +13,14 @@ export const AccessTokenProvider = ({ children }) => {
   //Get new token when old one expires
   const [expiry, setExpiry] = useState();
 
-  //Store Search Input
-  const [searchParam, setSearchParam] = useState("");
-
   //use to determine if user is signed in
   const getToken = () => token;
 
   //whether or not the token is stored in the Context API
   const hasToken = () => !!token;
+
+  //Store Err Msg
+  const [err, setErr] = useState("");
 
   //Login
   const login = (token, expiry) => {
@@ -37,16 +38,11 @@ export const AccessTokenProvider = ({ children }) => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      .catch((err) => console.log(err))
+      .catch((err) => setErr(err))
       .then(() => {
         setToken("");
         setExpiry();
       });
-  };
-
-  //Search for books
-  const SearchBooks = (searchParam) => {
-    setSearchParam(searchParam);
   };
 
   //When new token is needed
@@ -62,8 +58,6 @@ export const AccessTokenProvider = ({ children }) => {
         setExpiry(expiry);
       })
       .catch((err) => {
-        console.log(err);
-
         //if token is invalid, server will return 401 error
         if (err.response && err.response.status === 401) {
           logout();
@@ -85,7 +79,6 @@ export const AccessTokenProvider = ({ children }) => {
         logout,
         login,
         refreshToken,
-        SearchBooks,
       }}
     >
       {children}

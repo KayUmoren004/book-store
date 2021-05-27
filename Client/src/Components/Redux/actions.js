@@ -1,28 +1,43 @@
 import * as types from "./actionTypes";
 
-export const loginTest = () => {
-  return {
-    type: types.LOGIN_TEST,
-  };
-};
-
 export const getJWTToken = (token) => {
   return {
-    type: types.JWT_Token,
-    token,
+    type: types.JWT_TOKEN,
+    payload: token,
   };
 };
 
-export const search = (searchInput) => {
+export const Search = (searchInput) => {
   return {
     type: types.SEARCH,
     payload: searchInput,
   };
 };
 
-export const getBook = (selectedBook) => {
+export const CurrentBook = (currentBookDetails) => {
   return {
-    type: types.BOOK_SELECTED,
-    payload: selectedBook,
+    type: types.CURRENT_BOOK,
+    payload: currentBookDetails,
+  };
+};
+
+export const WantToRead = (Wbook) => {
+  return {
+    type: types.WTR,
+    payload: Wbook,
+  };
+};
+
+export const CurrentlyReading = (Cbook) => {
+  return {
+    type: types.WTR,
+    payload: Cbook,
+  };
+};
+
+export const Read = (Rbook) => {
+  return {
+    type: types.WTR,
+    payload: Rbook,
   };
 };

@@ -84,7 +84,7 @@ const LoginScreen = ({
           </Typography>
           <form
             className={classes.form}
-            Validate
+            noValidate
             method="POST"
             onSubmit={onSubmit}
           >
@@ -93,13 +93,13 @@ const LoginScreen = ({
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
+              id="username"
+              label="Username"
               name="email"
-              autoComplete="email"
+              autoComplete="none"
               autoFocus
               onChange={(e) => setUserName(e.target.value)}
-              error={errorMessage}
+              error={!!errorMessage}
             />
             <TextField
               variant="outlined"
@@ -112,7 +112,7 @@ const LoginScreen = ({
               id="password"
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
-              error={errorMessage}
+              error={!!errorMessage}
             />
 
             {loading && <p>Loading ...</p>}

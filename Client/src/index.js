@@ -1,21 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./Components/Screens/App/App";
+import App from "../src/Components/Screens/App/App";
 import reportWebVitals from "./reportWebVitals";
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import reducer from "../src/Components/Redux/reducer";
-const store = createStore(reducer);
 
 ReactDOM.render(
-  // <React.StrictMode>
-  //   <App />
-  // </React.StrictMode>,
-
-  <Provider store={store}>
+  <React.StrictMode>
     <App />
-  </Provider>,
+  </React.StrictMode>,
   document.getElementById("root")
 );
 

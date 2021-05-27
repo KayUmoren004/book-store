@@ -7,13 +7,16 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import LoginScreen from "./LoginScreen";
 import styled from "styled-components";
+import { BookContext } from "../../Context/BookContext";
 
+//Main Component
 const Login = (props) => {
-  //handle auth
+  //Handle Auth
   const { login } = useContext(AccessTokenContext);
+  const { setToken } = useContext(BookContext);
   const history = useHistory();
 
-  //Store user input
+  //Save User Input
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,11 +24,12 @@ const Login = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
     setIsLoading(true);
 
+    //Auth
     axios
       .request({
         method: "POST",
@@ -42,12 +46,16 @@ const Login = (props) => {
         const { token, expiry } = res.data;
         if (!token) throw Error("Missing JWT token");
         login(token, expiry);
+        setToken(token);
 
-        history.push("/home");
+        history.push({
+          pathname: "/",
+          state: {
+            AuthToken: token,
+          },
+        });
       })
       .catch((err) => {
-        console.error(err);
-
         if (err.response && err.response.status === 401) {
           setErrorMessage("Invalid username or password");
         } else setErrorMessage("We are sorry, unexpected error occurred.");

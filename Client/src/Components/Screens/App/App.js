@@ -1,23 +1,24 @@
 import React from "react";
-
-//Dependencies
-import { AccessTokenProvider } from "../../Context/AccessTokenContext";
-import Routes from "../../Routes/Routes";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
+import { createStore } from "redux";
+import { AccessTokenProvider } from "../../Context/AccessTokenContext";
+import { BookProvider } from "../../Context/BookContext";
 import reducer from "../../Redux/reducer";
-import thunk from "redux-thunk";
-import { MainProvider } from "../../Context/MainContext";
+import Routes from "../../Routes/Routes";
 
 const App = () => {
-  const store = createStore(reducer, applyMiddleware(thunk));
+  //Create Redux Store
+  const store = createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
 
   return (
     <Provider store={store}>
       <AccessTokenProvider>
-        <MainProvider>
+        <BookProvider>
           <Routes />
-        </MainProvider>
+        </BookProvider>
       </AccessTokenProvider>
     </Provider>
   );

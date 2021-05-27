@@ -1,16 +1,14 @@
 import { connect } from "react-redux";
 import Login from "./Login";
 
-import { loginTest } from "../../Redux/actions";
+import { getJWTToken } from "../../Redux/actions";
 
 const mapStateToProps = (state) => {
   return {
-    text: state.text,
+    JWT: state.JWT,
   };
 };
 
-const mapDispatchToProps = {
-  loginTest,
-};
+const mapDispatchToProps = { getJWTToken };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

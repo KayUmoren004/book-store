@@ -2,33 +2,45 @@ import * as types from "./actionTypes";
 
 const reducer = (
   state = {
-    text: "Login",
     JWT: "",
     searchInput: "",
-    book: [],
+    currentBook: "",
+    WantToRead: [],
+    CurrentlyReading: [],
+    Read: [],
   },
   action
 ) => {
   switch (action.type) {
-    case types.LOGIN_TEST:
+    case types.JWT_TOKEN:
       return {
         ...state,
-        text: "Login",
-      };
-    case types.JWT_Token:
-      return {
-        ...state,
-        JWT: action.token,
+        JWT: action.payload,
       };
     case types.SEARCH:
       return {
         ...state,
         searchInput: action.payload,
       };
-    case types.BOOK_SELECTED:
+    case types.CURRENT_BOOK:
       return {
         ...state,
-        book: action.payload,
+        currentBook: action.payload,
+      };
+    case types.WTR:
+      return {
+        ...state,
+        WantToRead: [...state.WantToRead, action.payload],
+      };
+    case types.CR:
+      return {
+        ...state,
+        CurrentlyReading: [...state.CurrentlyReading, action.payload],
+      };
+    case types.R:
+      return {
+        ...state,
+        Read: [...state.Read, action.payload],
       };
     default:
       return state;

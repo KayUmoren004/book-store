@@ -3,48 +3,45 @@ import React from "react";
 //Dependencies
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-// //prevent auto refresh
-// const handleDefault = e => {
-//   e.preventDefault()
-//   window.history.pushState({}, document.title, e.target.href)
-// }
 
 const NavBar = () => {
   return (
     <Nav>
-      <Link to="/bookshelf">My Bookshelf</Link>
-
       <NavContainer>
         <NavChild>
-          <Link to="/search">Search</Link>
+          <Link to="/bookshelf">My Bookshelf</Link>
         </NavChild>
+        <NavChild2>
+          <Link to="/search">Search</Link>
+        </NavChild2>
       </NavContainer>
     </Nav>
   );
 };
+
 const Nav = styled.nav`
   background-color: green;
   display: flex;
-  flex: 1;
   align-items: center;
-  align-self: center;
+  justify-content: center;
+  width: 100%;
 `;
 const NavContainer = styled.ul`
-  /* width: 100%;
-  float: left;
-  margin: 0 0 3em 0;
-  padding: 0; */
-
   list-style: none;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 `;
-const NavChild = styled.li`
-  float: left;
-  text-align: center;
+
+const NavChild = styled.li``;
+const NavChild2 = styled.li`
+  position: absolute;
+
+  right: 50px;
 `;
 
 const Link = styled(NavLink)`
   text-decoration: none;
-  /* width: 10%; */
   text-align: center;
   color: white;
   display: flex;

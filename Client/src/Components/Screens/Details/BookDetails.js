@@ -3,40 +3,27 @@ import React, { useEffect, useState } from "react";
 //Dependencies
 import NavBar from "../../Screen Components/NavBar/NavBar";
 import styled from "styled-components";
-import FlatList from "flatlist-react";
-import { MainContext } from "../../Context/MainContext";
-import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import DropDown from "../../Screen Components/Dropdown/Dropdown";
+import axios from "axios";
 
 const BookDetails = () => {
-  //Context Api
-  const [bookSelected, shelf, setShelf] = useContext(MainContext);
-
-  //local book storage
+  //Local Storage
   const [bookDetails, setBookDetails] = useState([]);
 
-  //pass dynamic link
+  //Pass dynamic link data
   const location = useLocation();
-  const bookId = location.state?.bookId;
-
-  //console.log(bookSelected);
-
-  // const detail = bookSelected.filter((book) => book.id === bookId);
-  // setBookDetails(detail);
-
-  // const getBook = () => {
-
-  // };
+  const bookId = location.pathname;
+  const token = window.sessionStorage.getItem("auth");
 
   useEffect(() => {
-    const detail = bookSelected.filter((book) => book.id === bookId);
-    setBookDetails(detail);
-
-    //console.log(shelf);
-  }, [bookId, bookSelected]);
+    axios.get(`/api/${bookId}`).then((res) => setBookDetails(res.data.book));
+  }, [bookId]);
 
   const renderDetails = (item, idx) => {
+    const author = item.authors;
+    const authorsWithSpace = author?.join(", ");
+
     return (
       <Container key={idx}>
         <TitleContainer>
@@ -46,12 +33,12 @@ const BookDetails = () => {
 
         <Body>
           <ImageContainer>
-            <Image alt={"book-cover"} src={item.imageLinks.thumbnail} />
+            <Image src={item.imageLinks?.thumbnail} alt="" />
           </ImageContainer>
           <Right>
             <AuthorContainer>
               <Author>Authors:</Author>
-              <Author2>{item.authors}</Author2>
+              <Author2>{authorsWithSpace}</Author2>
             </AuthorContainer>
             <DetailsContainer>
               <Details>{item.description}</Details>
@@ -67,14 +54,8 @@ const BookDetails = () => {
               <PDate2>{item.publishedDate}</PDate2>
             </PublishedDateContainer>
             <ShelfContainer>
-              {/* <Shelf>Change shelf:</Shelf> */}
-              {/* <DropDown
-                // value={shelf}
-                // setValue={setShelf}
-                optionValue1="WTR"
-                optionValue2="CR"
-                optionValue3="R"
-              /> */}
+              <Shelf>Change shelf:</Shelf>
+              <DropDown bookId={item.id} token={token} />
             </ShelfContainer>
           </Right>
         </Body>
@@ -85,14 +66,12 @@ const BookDetails = () => {
   return (
     <div>
       <NavBar />
-      <FlatListContainer>
-        <FlatList list={bookDetails} renderItem={renderDetails} />
-      </FlatListContainer>
+
+      {bookDetails && renderDetails(bookDetails)}
     </div>
   );
 };
 
-const FlatListContainer = styled.div``;
 const Container = styled.div`
   display: flex;
   margin: 20px;

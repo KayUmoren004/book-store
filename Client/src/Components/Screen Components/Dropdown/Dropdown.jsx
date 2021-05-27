@@ -1,32 +1,59 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //dependencies
 import styled from "styled-components";
-import { Dropdown } from "semantic-ui-react";
-import { MainContext } from "../../Context/MainContext";
+import axios from "axios";
 
-const DropDown = ({
-  // value,
-  // setValue,
-  optionValue1,
-  optionValue2,
-  optionValue3,
-}) => {
-  const [shelf, setShelf] = useContext(MainContext);
-  //state
-  //const [value, setValue] = useState()
+const DropDown = ({ bookId, token }) => {
+  //State
+  const [value, setValue] = useState("");
 
-  // const handleChange = (event) => {
-  //   ;
-  // };
+  useEffect(() => {
+    if (parseInt(value) === 0) {
+      return "Space";
+    } else if (parseInt(value) === 1) {
+      axios.request({
+        method: "PUT",
+        url: `/api/bookshelf/${bookId}/wantToRead`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
+    } else if (parseInt(value) === 2) {
+      axios.request({
+        method: "PUT",
+        url: `/api/bookshelf/${bookId}/currentlyReading`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
+    } else if (parseInt(value) === 3) {
+      axios.request({
+        method: "PUT",
+        url: `/api/bookshelf/${bookId}/read`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
+    }
+  }, [value, token, bookId]);
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+
+    window.location.reload();
+  };
 
   return (
     <Container>
-      <Select onChange={(event) => setShelf(event.target.value)} value={shelf}>
-        <Option></Option>
-        <Option value={optionValue1}>Want To Read</Option>
-        <Option value={optionValue2}>Currently Reading</Option>
-        <Option value={optionValue3}>Read</Option>
+      <Select onChange={handleChange} value={value}>
+        <Option value={0}></Option>
+        <Option value={1}>Want To Read</Option>
+        <Option value={2}>Currently Reading</Option>
+        <Option value={3}>Read</Option>
       </Select>
     </Container>
   );

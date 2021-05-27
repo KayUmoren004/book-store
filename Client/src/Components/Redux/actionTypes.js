@@ -1,4 +1,6 @@
-export const LOGIN_TEST = "LOGIN_TEXT";
-export const JWT_Token = "JWT_Token";
+export const JWT_TOKEN = "JWT_TOKEN";
 export const SEARCH = "SEARCH";
-export const BOOK_SELECTED = "BOOK_SELECTED";
+export const CURRENT_BOOK = "CURRENT_BOOK";
+export const WTR = "WTR";
+export const CR = "CR";
+export const R = "R";
