@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from "react";
 
 //Dependencies
 import axios from "axios";
-import { createCountdown, clearCountdown } from "../Utils/Refresh/Refresh";
+import { createCountdown, clearCountdown } from "../Utils/Refresh/refresh";
 
 export const AccessTokenContext = createContext();
 
