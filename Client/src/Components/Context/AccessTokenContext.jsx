@@ -61,7 +61,7 @@ export const AccessTokenProvider = ({ children }) => {
         //if token is invalid, server will return 401 error
         if (err.response && err.response.status === 401) {
           logout();
-        } else throw Error(err);
+        } else setErr(err);
       });
   };
 
