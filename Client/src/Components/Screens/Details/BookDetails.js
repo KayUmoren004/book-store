@@ -17,7 +17,7 @@ const BookDetails = () => {
   const token = window.sessionStorage.getItem("auth");
 
   useEffect(() => {
-    axios.get(`/api/${bookId}`).then((res) => setBookDetails(res.data.book));
+    axios.get(`/api${bookId}`).then((res) => setBookDetails(res.data.book));
   }, [bookId]);
 
   const renderDetails = (item, idx) => {
