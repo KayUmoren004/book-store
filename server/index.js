@@ -50,7 +50,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.use(express.static(path.resolve(__dirname, "../client/build")));
+app.use(express.static(path.resolve(__dirname, "../Client/build")));
 
 app.use("/api/bookshelf", bookshelfRouter);
 app.use("/api/book/search", bookSearchRouter);
@@ -59,9 +59,9 @@ app.use("/api/", authRouter);
 app.all("/api/*", fileNotFoundError);
 
 app.get("*", (req, res) => {
-  if (fs.existsSync(path.resolve(__dirname, "../client/build", "index.html"))) {
+  if (fs.existsSync(path.resolve(__dirname, "../Client/build", "index.html"))) {
     return res.sendFile(
-      path.resolve(__dirname, "../client/build", "index.html")
+      path.resolve(__dirname, "../Client/build", "index.html")
     );
   }
   const text =
